@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Skeleton Page</title>
+    <title>Psychic Game</title>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="style.css"> -->
     <!-- <link rel="stylesheet" type="text/css" href="css/reset.css"> -->
@@ -12,16 +12,63 @@
 
 <body>
     <h1>THE PSYCHIC GAME!</h1>
-    <br>
-    <h2>Guess the letter I'm thinking of...<h2>
-    <br>
-    <p>Wins:</p>
-    <p>Losses:</p>   
-    <p>Guesses Left:</p>
+    <img src="assets/images/psychic.jpg" alt="Neon Sign">
+    <h2>Guess the letter I'm thinking of...</h2> 
 
-    <p>Your Guesses so far:</p>
+    <div id="theGame">    
+            <p>Wins:</p>
+            <p>Losses:</p>
+            <p>Guesses Left:</p>
 
+            <p>Your Guesses so far:</p>
+    </div>
 
+            <script type = "text/javascript">
+                // Counters //
+                var wins=0;
+                var losses=0;
+                var guessesLeft=10;
+                var guessesSoFar = [];
+                var letters =["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
+                    "t", "u", "v", "w", "x", "y", "z"];
+
+                    
+                // Capture User and Computer selections //
+                document.onkeyup = function(event) {
+                    var userGuess = String.fromCharCode(event.keycode).toLowerCase();
+                    var computerGuess = letters[Math.floor(Math.random() * letters.length)];
+                    guessesSoFar.push(userGuess);
+                    console.log(computerGuess, userGuess);
+                    
+                    // sets Win conditional //
+                    if (userGuess === computerGuess) {
+                        wins++;
+                        alert("You Win!");
+                        guessesLeft=10;
+                    }
+                    // sets Incorrect Guess conditional //
+                    else if (userGuess !== computerGuess) {
+                        guessesLeft--;
+                    }
+                    // sets Loss conditional //
+                    else if (guessesLeft == 0) {
+                        alert("You Lose.");
+                        losses++
+                        guessesLeft=10;
+                    }
+
+                    var html = "<p>Wins: " + wins + "</p>" 
+                    +
+                    "<p>Losses: " + losses + "</p>" 
+                    +
+                    "<p>Guesses Left: " + guessesLeft + "</p>" 
+                    + 
+                    "<p>Your Guesses so far: " + guessesSoFar + "</p>";
+
+                    document.querySelector("#theGame").innerHTML = html;
+
+                }
+            </script>
 </body>
 
 
